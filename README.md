@@ -156,5 +156,5 @@ O projeto seguiu o padrao de commits semanticos:
 
 ## Autor
 
-**Rodrigo**
+**Rodrigo Tomazi**
 Curso: Desenvolvedor Front-End React — SENAI M1S6
