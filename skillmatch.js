@@ -99,6 +99,21 @@ const vagas = [
 ];
 
 // ============================================================
+// RF13 - CLOSURE: Contador de analises realizadas
+// A funcao interna mantem acesso a variavel "total" do escopo externo
+// ============================================================
+
+function criarContadorDeAnalises() {
+  let total = 0;
+  return function () {
+    total++;
+    return total;
+  };
+}
+
+const contarAnalise = criarContadorDeAnalises();
+
+// ============================================================
 // RF04 - CLASSIFICAR COMPATIBILIDADE por percentual (if-else)
 // ============================================================
 
@@ -119,12 +134,10 @@ function classificarCompatibilidade(percentual) {
 // ============================================================
 
 const calcularCompatibilidade = (candidatoParam, vaga) => {
-  // RF08 - filter: retorna apenas os requisitos que o candidato possui
   const habilidadesEncontradas = vaga.requisitos.filter(req =>
     candidatoParam.habilidades.includes(req)
   );
 
-  // RF08 - filter: retorna apenas os requisitos que o candidato NAO possui
   const habilidadesFaltantes = vaga.requisitos.filter(req =>
     !candidatoParam.habilidades.includes(req)
   );
@@ -159,8 +172,7 @@ const analisarTodasVagas = (candidatoParam, listaVagas) => {
 };
 
 // ============================================================
-// RF05 - LISTAR HABILIDADES FALTANTES por vaga
-// Usa for...of para percorrer a lista de habilidades
+// RF05 - LISTAR HABILIDADES FALTANTES por vaga (for...of)
 // ============================================================
 
 function exibirHabilidadesFaltantes(resultado) {
@@ -197,19 +209,14 @@ const buscarVagaPorEmpresa = (listaVagas, nomeEmpresa) => {
 
 // ============================================================
 // RF07 - GERAR RECOMENDACAO DE ESTUDO com base nas habilidades faltantes
-// Usa for e operadores logicos para montar a lista unica de habilidades
 // ============================================================
 
 function gerarRecomendacaoDeEstudo(resultados) {
   const todasFaltantes = [];
 
-  // for classico para percorrer todos os resultados
   for (let i = 0; i < resultados.length; i++) {
     const faltantes = resultados[i].habilidadesFaltantes;
-
-    // for classico para percorrer habilidades faltantes de cada vaga
     for (let j = 0; j < faltantes.length; j++) {
-      // Operador logico && para adicionar apenas se ainda nao estiver na lista
       if (!todasFaltantes.includes(faltantes[j])) {
         todasFaltantes.push(faltantes[j]);
       }
@@ -223,4 +230,54 @@ function gerarRecomendacaoDeEstudo(resultados) {
   return `Priorize estudar ${todasFaltantes.join(", ")}, pois esses conteudos aparecem nas vagas analisadas.`;
 }
 
-console.log("Funcoes de calculo carregadas com sucesso!");
+// ============================================================
+// RF03 - EXIBIR RESULTADO DE UMA ANALISE no console
+// Integra o closure contarAnalise para numerar cada analise
+// ============================================================
+
+function exibirResultadoAnalise(resultado) {
+  const numeroAnalise = contarAnalise();
+  const separador = "--------------------------------------------------";
+
+  console.log("\n" + separador);
+  console.log(`Analise #${numeroAnalise}`);
+  console.log(separador);
+  console.log(`Empresa:                ${resultado.vaga.empresa}`);
+  console.log(`Cargo:                  ${resultado.vaga.cargo}`);
+  console.log(`Modalidade:             ${resultado.vaga.modalidade}`);
+  console.log(`Salario:                R$ ${resultado.vaga.salario.toFixed(2)}`);
+  console.log(`Nivel:                  ${resultado.vaga.nivel}`);
+  console.log(`Compatibilidade:        ${resultado.percentual}%`);
+  console.log(`Classificacao:          ${resultado.classificacao}`);
+  console.log(`Atende todos os req.:   ${resultado.atendeTotal ? "Sim" : "Nao"}`);
+
+  const encontradas = resultado.habilidadesEncontradas.length > 0
+    ? resultado.habilidadesEncontradas.join(", ")
+    : "Nenhuma";
+
+  const faltantes = resultado.habilidadesFaltantes.length > 0
+    ? resultado.habilidadesFaltantes.join(", ")
+    : "Nenhuma";
+
+  console.log(`Habilidades encontradas: ${encontradas}`);
+  console.log(`Habilidades faltantes:   ${faltantes}`);
+  console.log(resultado.vaga.exibirResumoCompleto());
+}
+
+// ============================================================
+// RF12 - CALLBACK: Funcao que recebe outra funcao como parametro
+// ============================================================
+
+function finalizarAnalise(nomeCandidato, callback) {
+  console.log("\n==========================================");
+  console.log("Analise finalizada para: " + nomeCandidato);
+  console.log("==========================================");
+  callback(nomeCandidato);
+}
+
+function exibirMensagemFinal(nome) {
+  console.log(`\n${nome}, revise suas habilidades faltantes e atualize seu plano de estudos.`);
+  console.log("Boa sorte nas candidaturas!");
+}
+
+console.log("Closure, callback e exibicao carregados com sucesso!");
