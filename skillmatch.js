@@ -280,4 +280,75 @@ function exibirMensagemFinal(nome) {
   console.log("Boa sorte nas candidaturas!");
 }
 
-console.log("Closure, callback e exibicao carregados com sucesso!");
+// ============================================================
+// RF14 - PROMISE: Simular carregamento de vagas de um servidor
+// Representa a arquitetura cliente-servidor de forma assincrona
+// ============================================================
+
+function buscarVagasSimuladas() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(vagas);
+    }, 1000);
+  });
+}
+
+// ============================================================
+// RF14 - ASYNC/AWAIT: Funcao principal do sistema
+// Utiliza await para esperar o retorno da Promise antes de continuar
+// ============================================================
+
+async function iniciarSistema() {
+  console.log("============================================================");
+  console.log("  SKILLMATCH JS - Simulador de Compatibilidade com Vagas    ");
+  console.log("  Front-End Junior                                           ");
+  console.log("============================================================");
+  console.log(`\nConectando ao servidor e buscando vagas para: ${candidato.nome}...`);
+
+  // await pausa a execucao ate que a Promise seja resolvida
+  const vagasCarregadas = await buscarVagasSimuladas();
+  console.log(`${vagasCarregadas.length} vagas carregadas com sucesso!\n`);
+
+  console.log("=== PERFIL DO CANDIDATO ===");
+  console.log(`Nome:           ${candidato.nome}`);
+  console.log(`Area:           ${candidato.area}`);
+  console.log(`Experiencia:    ${candidato.experienciaMeses} mes(es)`);
+  console.log(`Habilidades:    ${candidato.habilidades.join(", ")}`);
+
+  // RF08 - map: analisa todas as vagas e retorna array de resultados
+  const resultados = analisarTodasVagas(candidato, vagasCarregadas);
+
+  console.log("\n=== ANALISE DE COMPATIBILIDADE COM TODAS AS VAGAS ===");
+
+  resultados.forEach(resultado => {
+    exibirResultadoAnalise(resultado);
+    exibirHabilidadesFaltantes(resultado);
+  });
+
+  // RF08 - find: demonstracao de busca de vaga especifica
+  console.log("\n=== BUSCA DE VAGA ESPECIFICA (find) ===");
+  const vagaEncontrada = buscarVagaPorEmpresa(vagasCarregadas, "TechStart");
+  if (vagaEncontrada !== undefined) {
+    console.log(`Vaga encontrada: ${vagaEncontrada.exibirResumo()}`);
+  } else {
+    console.log("Vaga nao encontrada.");
+  }
+
+  // RF06 - Melhor vaga (reduce)
+  const melhorVaga = encontrarMelhorVaga(resultados);
+  console.log("\n=== VAGA MAIS COMPATIVEL ===");
+  console.log(`Empresa:         ${melhorVaga.vaga.empresa}`);
+  console.log(`Cargo:           ${melhorVaga.vaga.cargo}`);
+  console.log(`Compatibilidade: ${melhorVaga.percentual}%`);
+  console.log(`Classificacao:   ${melhorVaga.classificacao}`);
+
+  // RF07 - Recomendacao de estudo
+  console.log("\n=== RECOMENDACAO DE ESTUDO ===");
+  console.log(gerarRecomendacaoDeEstudo(resultados));
+
+  // RF12 - Callback: mensagem final com nome do candidato
+  finalizarAnalise(candidato.nome, exibirMensagemFinal);
+}
+
+// Inicia o sistema
+iniciarSistema();
