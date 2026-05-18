@@ -65,11 +65,27 @@ const vagas = [
     "Junior"
   ),
   new VagaFrontEnd(
+    "DigitalFactory",
+    "Front-End Developer",
+    ["JavaScript", "HTML", "CSS", "GitHub", "TypeScript"],
+    3500,
+    "Remoto",
+    "Pleno"
+  ),
+  new VagaFrontEnd(
     "CodeLab",
     "Estagio Front-End",
-    ["JavaScript", "Kanban", "GitHub"],
+    ["JavaScript", "GitHub", "Kanban", "React"],
     1800,
     "Hibrido",
+    "Estagio"
+  ),
+  new VagaFrontEnd(
+    "StartupX",
+    "Estagiario de Programacao Web",
+    ["JavaScript", "HTML", "CSS", "React", "Node"],
+    1200,
+    "Remoto",
     "Estagio"
   ),
   new VagaFrontEnd(
@@ -79,22 +95,6 @@ const vagas = [
     3000,
     "Presencial",
     "Junior"
-  ),
-  new VagaFrontEnd(
-    "DigitalFactory",
-    "Front-End Developer",
-    ["JavaScript", "HTML", "CSS", "GitHub", "Kanban"],
-    3500,
-    "Remoto",
-    "Pleno"
-  ),
-  new VagaFrontEnd(
-    "StartupX",
-    "Estagiario de Programacao Web",
-    ["HTML", "CSS", "JavaScript"],
-    1200,
-    "Remoto",
-    "Estagio"
   )
 ];
 
