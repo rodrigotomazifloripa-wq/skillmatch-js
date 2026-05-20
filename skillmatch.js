@@ -289,7 +289,7 @@ function buscarVagasSimuladas() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(vagas);
-    }, 1000);
+    }, 3000);
   });
 }
 
