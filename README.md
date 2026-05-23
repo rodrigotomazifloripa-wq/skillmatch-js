@@ -149,7 +149,7 @@ O projeto seguiu o padrão de commits semânticos:
 
 - **Repositório GitHub:** https://github.com/rodrigotomazifloripa-wq/skillmatch-js
 - **Quadro Kanban:** https://github.com/users/rodrigotomazifloripa-wq/projects/1
-
+- **Video Sobre o Sistema:** https://drive.google.com/file/d/1qy9SFeh894r3ECCQ0rwOxMNH8gInIRAj/view?usp=sharing
 ---
 
 ## Tecnologias Utilizadas
