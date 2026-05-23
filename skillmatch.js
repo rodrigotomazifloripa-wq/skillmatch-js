@@ -1,7 +1,7 @@
 // ============================================================
 // SKILLMATCH JS
 // Simulador de Compatibilidade com Vaga Front-End Junior
-// Autor: Rodrigo
+// Autor: Rodrigo Tomazi
 // Curso: Desenvolvedor Front-End React - SENAI - M1S6
 // ============================================================
 
